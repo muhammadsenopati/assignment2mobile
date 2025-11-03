@@ -2,7 +2,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
 class LocationService {
-  // Request permission dan get current location
+  // Minta izin dan dapatkan lokasi saat ini
   static Future<String> getCurrentCity() async {
     try {
       // untuk ngecek izin lokasi
@@ -19,12 +19,12 @@ class LocationService {
         return 'MEDAN';
       }
 
-      // Get current position
+      // mendapatkan posisi sekarang
       Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
 
-      // Convert to city name
+      // Ubah ke nama kota
       List<Placemark> placemarks = await placemarkFromCoordinates(
         position.latitude,
         position.longitude,
