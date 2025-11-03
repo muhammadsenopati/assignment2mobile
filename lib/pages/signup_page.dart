@@ -9,18 +9,20 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  bool _obscurePassword = true;
-  bool _obscureConfirmPassword = true;
-
+  // kontroler untuk input field
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    final size = MediaQuery.of(context).size;
+    final screenHeight = size.height;
+    final screenWidth = size.width;
 
     return Scaffold(
       body: Container(
@@ -28,7 +30,10 @@ class _SignUpPageState extends State<SignUpPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.black87, Colors.black],
+            colors: [
+              Colors.black87,
+              Colors.black,
+            ],
           ),
         ),
         child: SafeArea(
@@ -36,11 +41,13 @@ class _SignUpPageState extends State<SignUpPage> {
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(
               horizontal: screenWidth * 0.07,
-              vertical: 20,
+              vertical: 22,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // ======= HEADER GAMBAR CINEMATIC =======
+
+                // ===== HEADER IMAGE =====
                 Container(
                   height: screenHeight * 0.45,
                   width: double.infinity,
@@ -54,7 +61,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   child: Container(
                     alignment: Alignment.bottomCenter,
-                    padding: const EdgeInsets.only(bottom: 40),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       gradient: LinearGradient(
@@ -62,27 +68,28 @@ class _SignUpPageState extends State<SignUpPage> {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          Colors.black.withOpacity(0.65),
+                          Colors.black.withOpacity(0.6),
                         ],
                       ),
                     ),
+                    padding: const EdgeInsets.only(bottom: 40),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           'Sign-up',
                           style: TextStyle(
+                            color: Colors.white,
                             fontSize: screenWidth * 0.09,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        const SizedBox(height: 5),
                         Text(
                           "Let's get started",
                           style: TextStyle(
-                            fontSize: screenWidth * 0.04,
                             color: Colors.white70,
+                            fontSize: screenWidth * 0.04,
                           ),
                         ),
                       ],
@@ -90,38 +97,42 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
 
-                SizedBox(height: screenHeight * 0.04),
+                SizedBox(height: screenHeight * 0.05),
 
-                // ======= FORM INPUT =======
+                // form untuk pengisian register
                 Column(
                   children: [
                     _buildTextField(
                       controller: _nameController,
-                      hint: 'Your Full Name',
+                      hintText: 'Your Full Name',
                       icon: Icons.person_outline,
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 15),
                     _buildTextField(
                       controller: _emailController,
-                      hint: 'Email',
+                      hintText: 'Email',
                       icon: Icons.email_outlined,
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 15),
                     _buildPasswordField(
                       controller: _passwordController,
-                      hint: 'Password',
-                      obscure: _obscurePassword,
+                      hintText: 'Password',
+                      obscureText: _obscurePassword,
                       onToggle: () {
-                        setState(() => _obscurePassword = !_obscurePassword);
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
                       },
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 15),
                     _buildPasswordField(
                       controller: _confirmPasswordController,
-                      hint: 'Confirm Password',
-                      obscure: _obscureConfirmPassword,
+                      hintText: 'Confirm Password',
+                      obscureText: _obscureConfirmPassword,
                       onToggle: () {
-                        setState(() => _obscureConfirmPassword = !_obscureConfirmPassword);
+                        setState(() {
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
+                        });
                       },
                     ),
                   ],
@@ -129,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                 const SizedBox(height: 28),
 
-                // ======= REGISTER BUTTON (warna disesuaikan) =======
+                // button untuk register
                 SizedBox(
                   width: double.infinity,
                   height: 56,
@@ -137,11 +148,13 @@ class _SignUpPageState extends State<SignUpPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const ProfilePage()),
+                        MaterialPageRoute(
+                          builder: (context) => const ProfilePage(),
+                        ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF3E4263), // Warna seperti di gambar
+                      backgroundColor: const Color(0xFF3E4263),
                       elevation: 2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -150,9 +163,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: Text(
                       'Register',
                       style: TextStyle(
+                        color: Colors.white,
                         fontSize: screenWidth * 0.045,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white, // teks putih
+                        letterSpacing: 0.5,
                       ),
                     ),
                   ),
@@ -160,30 +174,26 @@ class _SignUpPageState extends State<SignUpPage> {
 
                 const SizedBox(height: 28),
 
-                // ======= LOGIN LINK =======
+                // ===== LOGIN LINK =====
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Already have an account? ",
+                      "Already have an account?",
                       style: TextStyle(
                         color: Colors.grey[400],
                         fontSize: screenWidth * 0.035,
                       ),
                     ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: const Size(0, 0),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
+                    const SizedBox(width: 3),
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
                       child: Text(
                         'Login here',
                         style: TextStyle(
                           color: Colors.cyan,
-                          fontWeight: FontWeight.bold,
                           fontSize: screenWidth * 0.035,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -197,10 +207,10 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  // ====== TEXT FIELD BUILDER ======
+  // textfield biasa
   Widget _buildTextField({
     required TextEditingController controller,
-    required String hint,
+    required String hintText,
     required IconData icon,
   }) {
     return TextField(
@@ -209,45 +219,47 @@ class _SignUpPageState extends State<SignUpPage> {
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
-        hintText: hint,
-        hintStyle: const TextStyle(color: Colors.grey),
         prefixIcon: Icon(icon, color: Colors.grey),
+        hintText: hintText,
+        hintStyle: const TextStyle(color: Colors.grey),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: BorderSide.none,
         ),
+        contentPadding: const EdgeInsets.symmetric(vertical: 16),
       ),
     );
   }
 
-  // ====== PASSWORD FIELD BUILDER ======
+  // textfield password
   Widget _buildPasswordField({
     required TextEditingController controller,
-    required String hint,
-    required bool obscure,
+    required String hintText,
+    required bool obscureText,
     required VoidCallback onToggle,
   }) {
     return TextField(
       controller: controller,
-      obscureText: obscure,
+      obscureText: obscureText,
       style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
-        hintText: hint,
+        hintText: hintText,
         hintStyle: const TextStyle(color: Colors.grey),
         prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey),
         suffixIcon: IconButton(
+          onPressed: onToggle,
           icon: Icon(
-            obscure ? Icons.visibility_off : Icons.visibility,
+            obscureText ? Icons.visibility_off : Icons.visibility,
             color: Colors.grey,
           ),
-          onPressed: onToggle,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: BorderSide.none,
         ),
+        contentPadding: const EdgeInsets.symmetric(vertical: 16),
       ),
     );
   }

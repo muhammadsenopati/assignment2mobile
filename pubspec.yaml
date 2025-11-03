@@ -1,5 +1,5 @@
 name: cinema_booking_app
-description: A cinema booking application with geolocation
+description: Aplikasi untuk nonton bioskop menggunakan geolocator 
 
 environment:
   sdk: ">=3.9.0 <4.0.0"

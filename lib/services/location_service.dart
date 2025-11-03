@@ -5,7 +5,7 @@ class LocationService {
   // Request permission dan get current location
   static Future<String> getCurrentCity() async {
     try {
-      // Check permission
+      // untuk ngecek izin lokasi
       LocationPermission permission = await Geolocator.checkPermission();
       
       if (permission == LocationPermission.denied) {
